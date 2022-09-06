@@ -7,3 +7,4 @@ Script can check if reboot is relly needed.
 ## Supporting
 
 * Debian
+* CentOS/Fedora

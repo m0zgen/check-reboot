@@ -46,6 +46,15 @@ checkDistro() {
     fi
 }
 
+check_CentOS_Fedora() {
+    if [[ "$(command -v needs-restarting)" ]]; then
+        echo "needs-restarting is not installed" 1>&2
+        exit 1
+    else
+        needs-restarting  -r ; echo $?
+    fi
+}
+
 check_Debian() {
     if [ -f /var/run/reboot-required ]; then
         echo 'Reboot required'
@@ -60,11 +69,11 @@ check_Debian() {
 isRoot
 checkDistro
 if [[ "$RPM" -eq "1" ]]; then
-    echo "CentOS detected... Not supported at current time. Exit."   
-    exit 1
+    echo "CentOS detected..."
+    check_CentOS_Fedora
 elif [[ "$RPM" -eq "2" ]]; then
-    echo "Fedora detected... Not supported at current time. Exit."
-    exit 1
+    echo "Fedora detected... "
+    check_CentOS_Fedora
 elif [[ "$DEB" -eq "1" ]]; then
     echo "Debian detected... "
     check_Debian
