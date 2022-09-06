@@ -47,7 +47,7 @@ checkDistro() {
 }
 
 check_CentOS_Fedora() {
-    if [[ "$(command -v needs-restarting)" ]]; then
+    if [[ ! "$(command -v needs-restarting)" ]]; then
         echo "needs-restarting is not installed" 1>&2
         exit 1
     else
